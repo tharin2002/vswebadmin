@@ -1,0 +1,26 @@
+{
+  "name": "gridsome-start-buefy-portfolio",
+  "license": "BSD-3-Clause",
+  "author": "FriendlyUser <davidli012345@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FriendlyUser/gridsome-starter-buefy.git"
+  },
+  "scripts": {
+    "build": "npx gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "buefy": "^0.8.10",
+    "gridsome": "^0.7.12",
+    "vue-json-pretty": "^1.6.3"
+  },
+  "devDependencies": {
+    "@gridsome/source-filesystem": "^0.6.2",
+    "@gridsome/transformer-remark": "^0.4.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.0"
+  }
+}
