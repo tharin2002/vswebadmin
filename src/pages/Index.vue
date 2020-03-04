@@ -53,6 +53,7 @@ export default {
       this.$connect('ws://' + document.location.host + '/ws/' + Object.entries(this.jwt)[0][1])
     } catch (e) {
       console.warn(e)
+      window.location.href = 'Login'
     }
   },
   components: {

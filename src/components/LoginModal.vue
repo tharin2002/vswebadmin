@@ -16,8 +16,13 @@
           >
           </b-input>
         </b-field>
-
-        <b-checkbox>Remember me</b-checkbox>
+        <div class="has-text-centered has-text-grey">
+          Use
+          <span class="tag is-light is-family-monospace"
+            >/httpgateway code</span
+          >
+          in game.
+        </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-primary" type="submit">Login</button>
@@ -30,23 +35,26 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      code: '',
+      code: ''
     };
   },
   methods: {
     async handleSubmit() {
       var that = this;
       await axios
-        .post('/api/login?code='+this.code, {
-          code: this.code,
+        .post('/api/login?code=' + this.code, {
+          code: this.code
         })
         .then(function(response) {
           if (response.error) {
-            console.warn(error)
+            console.warn(error);
             return;
           }
-          window.localStorage.setItem('httpgateway-jwt', JSON.stringify(response.data))
-          window.location.href = '/'
+          window.localStorage.setItem(
+            'httpgateway-jwt',
+            JSON.stringify(response.data)
+          );
+          window.location.href = '/';
         })
         .catch(function(error) {
           console.warn(error);
