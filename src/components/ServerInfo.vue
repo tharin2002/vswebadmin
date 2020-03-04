@@ -1,8 +1,9 @@
 <template>
   <div class="container">
-    <h1 class="title">Server Information</h1>
+    <h2 class="subtitle">Server Information</h1>
     <b-table :data="data" :columns="columns" detailed>
       <template slot="detail" slot-scope="props">
+      <ClientOnly>
         <vue-json-pretty
           :path="'res'"
           :data="props.row.config"
@@ -12,13 +13,14 @@
           :showDoubleQuotes="false"
           :highlightMouseoverNode="true"
         ></vue-json-pretty>
+        </ClientOnly>
       </template>
     </b-table>
   </div>
 </template>
 
 <script>
-import VueJsonPretty from 'vue-json-pretty';
+// import VueJsonPretty from 'vue-json-pretty';
 export default {
   data() {
     return {
@@ -26,8 +28,6 @@ export default {
         {
           field: 'name',
           label: 'Name'
-          //width: '40',
-          //numeric: true
         },
         {
           field: 'status',
@@ -37,8 +37,18 @@ export default {
           field: 'uptime',
           label: 'Uptime (sec)'
         }
-      ],
-      data: [
+      ]
+    };
+  },
+  components: {
+    VueJsonPretty: () => import('vue-json-pretty')
+  },
+  methods: {
+    handleClick: () => {}
+  },
+  computed: {
+    data: function() {
+      return [
         {
           name: this.server.Config.ServerName,
           status: this.server.CurrentRunPhase,
@@ -46,17 +56,10 @@ export default {
           config: this.server.Config
         }
       ]
-    };
+    }
   },
-  components: {
-    VueJsonPretty
-  },
-  methods: {
-    handleClick: () => {}
-  },
-  computed: {},
   props: {
-    server: Object
+    server: null
   }
 };
 </script>

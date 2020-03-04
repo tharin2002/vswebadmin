@@ -19,9 +19,9 @@ function addStyleResource(rule) {
 }
 
 module.exports = {
-  siteName: 'VSWeb Server Administration',
+  siteName: 'VS Web Admin',
   siteUrl: 'https://github.com/tharin2002/vsweb',
-  pathPrefix: '/vsweb/',
+  pathPrefix: '',
   plugins: [
     {
       use: '@gridsome/source-filesystem',
@@ -38,6 +38,13 @@ module.exports = {
           }
         }
       }
+    },
+    {
+      use: 'gridsome-plugin-copy-build',
+      options: {
+        targetDir: path.resolve(__dirname, '../vs/assets/httpgateway/'),
+        verbose: true
+      }
     }
   ],
   transformers: {
@@ -48,9 +55,15 @@ module.exports = {
       }
     }
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
   chainWebpack: config => {
     // Load variables for all vue-files
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+    config.mode('development')
 
     types.forEach(type => {
       addStyleResource(config.module.rule('sass').oneOf(type));

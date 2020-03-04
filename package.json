@@ -15,7 +15,10 @@
     "axios": "^0.19.2",
     "buefy": "^0.8.10",
     "gridsome": "^0.7.12",
-    "vue-json-pretty": "^1.6.3"
+    "gridsome-plugin-copy-build": "^1.0.1",
+    "vue-chat-scroll": "^1.3.6",
+    "vue-json-pretty": "^1.6.3",
+    "vue-native-websocket": "^2.0.14"
   },
   "devDependencies": {
     "@gridsome/source-filesystem": "^0.6.2",

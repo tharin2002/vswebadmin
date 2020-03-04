@@ -1,0 +1,87 @@
+<template>
+  <Layout title="VS Web Admin">
+    <br />
+    <h1>VS Web Admin</h1>
+    <div>
+      <ServerInfo v-if="this.server" :server="this.server" />
+      <br />
+      <br />
+      <Players
+        v-if="this.ready"
+        :players="this.server.Players"
+      />
+      <br />
+      <br />
+      <ServerLogs v-if="this.ready"/>
+    </div>
+    <br />
+    <footer class="footer">
+      <!-- <div class="content has-text-centered">
+        <p>
+          <strong>Gridsome Starter Buefy</strong> by
+          <a href="https://FriendlyUser.github.io">David Li</a>. The source code
+          is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The
+          website content is licensed
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+            >CC BY NC SA 4.0</a
+          >.
+        </p>
+      </div> -->
+    </footer>
+  </Layout>
+</template>
+
+<script>
+// import Layout from '~/layouts/Default.vue';
+// import Players from '~/components/Players.vue';
+import ServerInfo from '~/components/ServerInfo.vue';
+// import ServerLogs from '~/components/ServerLogs.vue';
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      server: null,
+      jwt: null,
+      auth: false,
+      ready: false
+    };
+  },
+  components: {
+    Layout: () => import('~/layouts/Default.vue'),
+    Players: () => import('~/components/Players.vue'),
+    ServerInfo,
+    ServerLogs: () => import('~/components/ServerLogs.vue')
+  },
+  beforeMount() {
+    this.jwt = JSON.parse(window.localStorage.getItem('httpgateway-jwt'))
+    if (!this.jwt) {
+      window.location.href = 'Login'
+    } else {
+      this.auth = true;
+      axios.defaults.headers.common[Object.entries(this.jwt)[0][0]] = Object.entries(this.jwt)[0][1];
+    }
+  },
+  async mounted() {
+    try {
+        const results = await axios.get('/api/server');
+        if (results.data?.error) {
+          console.log(results.data.error);
+          return;
+        }
+        this.server = results.data;
+        console.log(results)
+        console.log(this)
+        //this.$connect('ws://' + document.location.host + '/ws/' + Object.entries(this.jwt)[0][1])
+        this.ready = true;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  destroyed() {
+    this.$disconnect()
+  }
+};
+</script>
+
+<style></style>

@@ -1,7 +1,21 @@
 <template>
   <div class="container">
-    <h1 class="title">Players</h1>
-    <b-table :data="data" :columns="columns" />
+    <h2 class="subtitle">Players</h1>
+    <b-table :data="data" :columns="columns" bordered striped narrowed hoverable >
+      <template slot="empty">
+        <section class="section">
+            <div class="content has-text-grey has-text-centered">
+                <p>
+                    <b-icon
+                        icon="emoticon-sad"
+                        size="is-large">
+                    </b-icon>
+                </p>
+                <p>No one online.</p>
+            </div>
+        </section>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -13,8 +27,14 @@ export default {
         {
           field: 'name',
           label: 'Name'
-          //width: '40',
-          //numeric: true
+        },
+        {
+          field: 'role',
+          label: 'Role'
+        },
+        {
+          field: 'language',
+          label: 'Language'
         },
         {
           field: 'status',
@@ -23,6 +43,10 @@ export default {
         {
           field: 'ip',
           label: 'IP Address'
+        },
+        {
+          field: 'ping',
+          label: 'Ping'
         }
       ]
     };
@@ -34,15 +58,18 @@ export default {
       for (var p of this.players) {
         data.push({
           name: p.ServerData.LastKnownPlayername,
+          role: p.Role.Name,
+          language: p.LanguageCode,
           status: p.ConnectionState,
-          ip: p.IpAddress
+          ip: p.IpAddress,
+          ping: p.Ping * 1000 + 'ms'
         });
       }
       return data;
     }
   },
   props: {
-    players: Array
+    players: []
   }
 };
 </script>
