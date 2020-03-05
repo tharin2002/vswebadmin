@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="subtitle">Server Information</h2>
-    <b-table :data="data" :columns="columns" detailed>
+    <b-table :data="data" :columns="columns" detailed :detail-key="[1]">
       <template slot="detail" slot-scope="props">
         <ClientOnly>
           <vue-json-pretty
@@ -12,6 +12,7 @@
             :showLength="true"
             :showDoubleQuotes="false"
             :highlightMouseoverNode="true"
+            :opened-detailed="detailsOpened"
           ></vue-json-pretty>
         </ClientOnly>
       </template>
@@ -36,6 +37,10 @@ export default {
         {
           field: 'uptime',
           label: 'Uptime (sec)'
+        },
+        {
+          field: 'id',
+          visible: false
         }
       ]
     };
@@ -53,13 +58,19 @@ export default {
           name: this.server.Config.ServerName,
           status: this.server.CurrentRunPhase,
           uptime: this.server.ServerUptimeSeconds,
-          config: this.server.Config
+          config: this.server.Config,
+          id: 1
         }
       ];
     }
   },
   props: {
     server: null
+  },
+  methods: {
+    toggle(row) {
+      this.$refs.table.toggleDetails(row);
+    }
   }
 };
 </script>
