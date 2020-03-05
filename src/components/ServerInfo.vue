@@ -1,18 +1,18 @@
 <template>
   <div class="container">
-    <h2 class="subtitle">Server Information</h1>
+    <h2 class="subtitle">Server Information</h2>
     <b-table :data="data" :columns="columns" detailed>
       <template slot="detail" slot-scope="props">
-      <ClientOnly>
-        <vue-json-pretty
-          :path="'res'"
-          :data="props.row.config"
-          @click="handleClick"
-          :deep="1"
-          :showLength="true"
-          :showDoubleQuotes="false"
-          :highlightMouseoverNode="true"
-        ></vue-json-pretty>
+        <ClientOnly>
+          <vue-json-pretty
+            :path="'res'"
+            :data="props.row.config"
+            @click="handleClick"
+            :deep="1"
+            :showLength="true"
+            :showDoubleQuotes="false"
+            :highlightMouseoverNode="true"
+          ></vue-json-pretty>
         </ClientOnly>
       </template>
     </b-table>
@@ -55,7 +55,7 @@ export default {
           uptime: this.server.ServerUptimeSeconds,
           config: this.server.Config
         }
-      ]
+      ];
     }
   },
   props: {

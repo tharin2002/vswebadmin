@@ -1,7 +1,14 @@
 <template>
   <div class="container">
-    <h2 class="subtitle">Server Logs</h1>
-    <b-table :data="messages" sticky-header v-chat-scroll :mobile-cards="false" striped narrowed>
+    <h2 class="subtitle">Server Logs</h2>
+    <b-table
+      :data="messages"
+      sticky-header
+      v-chat-scroll
+      :mobile-cards="false"
+      striped
+      narrowed
+    >
       <template slot-scope="props">
         <b-table-column
           field="type"

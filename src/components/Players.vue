@@ -1,18 +1,22 @@
 <template>
   <div class="container">
-    <h2 class="subtitle">Players</h1>
-    <b-table :data="data" :columns="columns" bordered striped narrowed hoverable >
+    <h2 class="subtitle">Players</h2>
+    <b-table
+      :data="data"
+      :columns="columns"
+      bordered
+      striped
+      narrowed
+      hoverable
+    >
       <template slot="empty">
         <section class="section">
-            <div class="content has-text-grey has-text-centered">
-                <p>
-                    <b-icon
-                        icon="emoticon-sad"
-                        size="is-large">
-                    </b-icon>
-                </p>
-                <p>No one online.</p>
-            </div>
+          <div class="content has-text-grey has-text-centered">
+            <p>
+              <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+            </p>
+            <p>No one online.</p>
+          </div>
         </section>
       </template>
     </b-table>

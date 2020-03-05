@@ -46,8 +46,8 @@ export default {
           code: this.code
         })
         .then(function(response) {
-          if (response.error) {
-            console.warn(error);
+          if (response.data?.error) {
+            console.warn(response.data.error);
             return;
           }
           window.localStorage.setItem(
